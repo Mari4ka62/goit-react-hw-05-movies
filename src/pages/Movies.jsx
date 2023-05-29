@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation, NavLink } from 'react-router-dom';
 import { getMovieBySearch } from 'services/API';
 
 export default function Movies() {
@@ -7,6 +7,8 @@ export default function Movies() {
   const searchQuery = searchParams.get('query');
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
+
+  const location = useLocation();
 
   const handleChange = e => {
     setQuery(e.target.value);
@@ -43,9 +45,9 @@ export default function Movies() {
       <ul>
         {movies.map(({ id, title }) => (
           <li key={id}>
-            {/* <Link to={`${id}`} state={{ from: location }}> */}
-            {title}
-            {/* </Link> */}
+            <NavLink to={`${id}`} state={{ from: location }}>
+              {title}
+            </NavLink>
           </li>
         ))}
       </ul>
