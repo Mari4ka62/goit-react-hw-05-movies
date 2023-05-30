@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useLocation, NavLink } from 'react-router-dom';
 import { getMovieBySearch } from 'services/API';
+import { Input, Item } from './Pages.styled';
 
 export default function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -34,7 +35,7 @@ export default function Movies() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
           name="searchQuery"
           type="text"
           value={query}
@@ -44,11 +45,11 @@ export default function Movies() {
       </form>
       <ul>
         {movies.map(({ id, title }) => (
-          <li key={id}>
+          <Item key={id}>
             <NavLink to={`${id}`} state={{ from: location }}>
               {title}
             </NavLink>
-          </li>
+          </Item>
         ))}
       </ul>
     </>

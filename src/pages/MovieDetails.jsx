@@ -1,6 +1,16 @@
 import { useState, useEffect, Suspense, useRef } from 'react';
 import { getMovieDetails } from '../services/API';
 import { NavLink, Outlet, useParams, useLocation } from 'react-router-dom';
+import {
+  ButtonBack,
+  Container,
+  Image,
+  MovieInfo,
+  AdditionalList,
+  Title,
+  Item,
+  StyledLink,
+} from './Pages.styled';
 
 export default function MovieDetails() {
   const [movie, setMovie] = useState({});
@@ -26,28 +36,35 @@ export default function MovieDetails() {
 
   return (
     <>
-      <NavLink to={backLinkLocation.current}>Go back</NavLink>
-      <img
-        src={poster_path && `https://image.tmdb.org/t/p/w500${poster_path}`}
-        alt={title}
-      ></img>
-      <h2>{title}</h2>
-      <p>User score:{vote_average}</p>
-      <h3>Overview</h3>
-      <p>{overview}</p>
-      <h3>Genres</h3>
-      <p>{genres}</p>
+      <ButtonBack>
+        <StyledLink to={backLinkLocation.current}>Go back</StyledLink>
+      </ButtonBack>
+      <Container>
+        <Image
+          src={poster_path && `https://image.tmdb.org/t/p/w500${poster_path}`}
+          alt={title}
+        ></Image>
+        <MovieInfo>
+          <Title>{title}</Title>
+          <p>User score:{vote_average}</p>
+          <h3>Overview</h3>
+          <p>{overview}</p>
+          <h3>Genres</h3>
+          <p>{genres}</p>
+        </MovieInfo>
+      </Container>
       <div>
         <h3>Additional information</h3>
-        <ul>
-          <li>
+        <AdditionalList>
+          <Item>
             <NavLink to="cast">Cast</NavLink>
-          </li>
-          <li>
+          </Item>
+          <Item>
             <NavLink to="reviews">Reviews</NavLink>
-          </li>
-        </ul>
+          </Item>
+        </AdditionalList>
       </div>
+
       <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
       </Suspense>

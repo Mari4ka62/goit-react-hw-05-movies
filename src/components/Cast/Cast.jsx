@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieCast } from 'services/API.jsx';
+import { Image } from './Cast.styled';
 
 export default function Cast() {
   const [cast, setCast] = useState([]);
@@ -21,7 +22,7 @@ export default function Cast() {
     <ul>
       {cast.map(({ id, name, profile_path, character }) => (
         <li key={id}>
-          <img
+          <Image
             src={
               profile_path && `https://image.tmdb.org/t/p/w500${profile_path}`
             }

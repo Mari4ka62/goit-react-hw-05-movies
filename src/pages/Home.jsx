@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { getTrendingMovies } from '../services/API';
+import { Box, Title, Item } from './Pages.styled';
+
 export default function Home() {
   const [movies, setMovies] = useState([]);
 
@@ -14,17 +16,17 @@ export default function Home() {
     trendingMovies();
   }, []);
   return (
-    <>
-      <h1>Trending today</h1>
+    <Box>
+      <Title>Trending today</Title>
       <ul>
         {movies.map(({ id, title }) => (
-          <li key={id}>
+          <Item key={id}>
             <NavLink to={`movies/${id}`} state={{ from: location }}>
               {title}
             </NavLink>
-          </li>
+          </Item>
         ))}
       </ul>
-    </>
+    </Box>
   );
 }
